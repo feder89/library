@@ -1,0 +1,65 @@
+<p-table #dt [value]="books" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          <button pButton icon="fa fa-plus" (click)="onAddBook()"></button>
+        </div>
+        <div class="div-table-cell-center">
+          Anagrafica Libri
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+        <th>ID</th>
+        <th>Titolo</th>
+        <th>Casa Editrice</th>
+        <th>ISBN</th>
+        <th>Prezzo €</th>
+        <th>N. tomi</th>
+        <th>Materia</th>
+        <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt pInputText type="text" (input)="filterBooks(ipt.value)" style="width: 95%;">
+        </div>
+
+      </th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+      <tr>
+          <td>{{book.id}}</td>
+          <td>{{book.titolo}}</td>
+          <td>{{book.case_editrici.nome}}</td>
+          <td>{{book.codice_isbn}}</td>
+          <td>{{book.prezzo.toFixed(2)}}</td>
+          <td>{{book.tomi}}</td>
+          <td>{{book.materia}}</td>
+          <td>
+            <span class="margin-x-r">
+              <button pButton icon="fa fa-pencil" (click)="onSelectBook(book.id)"></button>
+            </span>
+            <button pButton icon="fa fa-trash-o" (click)="onDeleteBook(book.id, book.titolo)"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<p-dialog header="Dettaglio Libro" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
+  <app-book-detail [bookId]="bookIdSeleted"></app-book-detail>
+</p-dialog>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>

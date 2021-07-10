@@ -1,0 +1,41 @@
+<p-table [value]="orders" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          &nbsp;
+        </div>
+        <div class="div-table-cell-center">
+          Lista Ordini
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+        <th>ID</th>
+        <th>Distributore</th>
+        <th>Data</th>
+        <th>Tipologia</th>
+        <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order>
+      <tr>
+          <td>{{order.id}}</td>
+          <td>{{order.object.nome}}</td>
+          <td>{{utils.formatDatetime(order.data)}}</td>
+          <td>{{setType(order.distributore)}}</td>
+          <td>
+            <span class="margin-x-r">
+              <button pButton icon="fa fa-pencil" (click)="onSelectOrder(order.id)"></button>
+            </span>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<p-dialog header="Dettaglio Ordine" minWidth=600 height=1000 [(visible)]="displayDetailDialog" [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
+  <app-order-consult [orderId]="orderIdSeleted"></app-order-consult>
+</p-dialog>

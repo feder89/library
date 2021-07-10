@@ -1,0 +1,42 @@
+<p-dropdown [options]="toBeReminded" placeholder="Scegli Distributore o Casa Editrice" optionLabel="nome" (onChange)="onSelect($event)"></p-dropdown>
+<div class="p-grid" *ngIf="orders">
+  <div class="p-col-12">
+    <div class="p-grid">
+      <div class="p-col-12 margin-y-t-3" *ngIf="orders">
+        LA CARIOCA DI BERNA ARIANNA<br />
+        via Francesco Innamorati, 16/a<br />
+        06034 - FOLIGNO (PG)<br />
+        P. IVA 02839810542
+      </div>
+      <div class="p-col-6 p-offset-6 div-align-right" *ngIf="wholesaler">
+        {{wholesaler.nome}}<br />
+        {{wholesaler.indirizzo}}<br />
+        {{wholesaler.citta}} - ({{wholesaler.provincia}})<br />
+        P. IVA {{wholesaler.iva}}
+      </div>
+    </div>
+    <div class="p-col-12" *ngIf="orders">
+      <div *ngFor="let o of orders">
+        <h3>Ordine n. {{o.id_ordine}} del {{util.formatDatetime(o.data)}}</h3>
+        <p-table [value]="o.books">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ISBN</th>
+              <th>Titolo</th>
+              <th *ngIf="o.books[0].ce_nome"></th>
+              <th>Quantità</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+              <td>{{rowData.codice_isbn}}</td>
+              <td>{{rowData.titolo}}</td>
+              <td *ngIf="rowData.ce_nome">{{rowData.ce_nome}}</td>
+              <td>{{rowData.quantity}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <button pButton label="Stampa Sollecito" (click)="printRemind()"></button>
+  </div>

@@ -1,0 +1,52 @@
+<div class="p-col-12">
+  <div class="p-grid" *ngIf="orderId">
+    <div class="p-col-8">
+      N. ORDINE {{orderId}} prtocollo int {{getYear()}}/{{orderId}}
+    </div>
+    <div class="p-col-4">
+      <span class="margin-x-r">
+        <input id="price" type="text" pInputText [(ngModel)]="protocolloExt" />
+      </span>
+      <span class="margin-x-r">
+        <button pButton type="button" label="Salva" (click)="save()"
+        [disabled]="protocolloExt.length < 0"></button>
+      </span>
+    </div>
+    <div class="p-col-12 margin-y-t-3">
+      <p-table [value]="order">
+        <ng-template pTemplate="caption">
+          <div class="div-table">
+            <div class="div-table-row">
+              <div class="div-table-cell-side">
+                &nbsp;
+              </div>
+              <div class="div-table-cell-center">
+                Libri nell'ordine
+              </div>
+              <div class="div-table-cell-side">&nbsp;</div>
+            </div>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ISBN</th>
+            <th>Titolo</th>
+            <th>Materia</th>
+            <th>Casa Editrice</th>
+            <th>Quantità</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+          <tr>
+            <td>{{order.libro.codice_isbn}}</td>
+            <td>{{order.libro.titolo}}</td>
+            <td>{{order.libro.materia}}</td>
+            <td>{{order.casa_editrice}}</td>
+            <td>{{order.quantity}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

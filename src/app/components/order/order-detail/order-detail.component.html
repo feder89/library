@@ -1,0 +1,85 @@
+<div class="p-col-12">
+  <div class="p-grid">
+    <div class="p-col-4 div-align-right">
+      <label class="margin-x-r" for="iva">DISTRIBUTORE</label>
+    </div>
+    <div class="p-col-8">
+      <p-dropdown id="distributore-dd" placeholder="Scegli Distributore" [options]="wholesalers"
+        (onChange)="onChangeWholsaler($event)" [(ngModel)]="newOrder.distributore"></p-dropdown>
+    </div>
+    <div class="p-col-4 div-align-right" *ngIf="newOrder.distributore == null">
+      <label class="margin-x-r" for="iva">CASA EDITRICE</label>
+    </div>
+    <div class="p-col-8" *ngIf="newOrder.distributore == null">
+      <p-dropdown id="distributore-dd" placeholder="Scegli Casa Editrice" [options]="publishers"
+        (onChange)="onChangePublisherSelect($event)" [(ngModel)]="selectedPublisher" optionLabel="nome">
+      </p-dropdown>
+    </div>
+
+    <div class="p-col-4 div-align-right" *ngIf="newOrder.distributore != null">
+      <label class="margin-x-r" for="iva">CASE EDITRICI</label>
+    </div>
+    <div class="p-col-8" *ngIf="newOrder.distributore != null">
+      <p-multiSelect id="distributore-dd" defaultLabel="Scegli Case Editrici" [options]="publishers"
+        (onChange)="onChangePublisherMultiSelect($event)" optionLabel="nome" [ngModel]="selectedPublishers">
+      </p-multiSelect>
+    </div>
+
+    <div class="p-col-11 margin-y-t-3">
+      <div class="p-grid">
+        <div class="p-col-6 margin-y-t-3" *ngIf="newOrder.distributore">
+          LA CARIOCA DI BERNA ARIANNA<br />
+          via Francesco Innamorati, 16/a<br />
+          06034 - FOLIGNO (PG)<br />
+          P. IVA 02839810542
+        </div>
+        <div class="p-col-6 p-offset-6 div-align-right" *ngIf="newOrder.distributore">
+          {{newOrder.distributore.nome}}<br />
+          {{newOrder.distributore.indirizzo}}<br />
+          {{newOrder.distributore.citta}} - ({{newOrder.distributore.provincia}})<br />
+          P. IVA {{newOrder.distributore.iva}}
+        </div>
+        <div class="p-col-12 margin-y-t-3">
+          <p-table [value]="newOrder.bookings">
+            <ng-template pTemplate="caption">
+              <div class="div-table">
+                <div class="div-table-row">
+                  <div class="div-table-cell-side">
+                    &nbsp;
+                  </div>
+                  <div class="div-table-cell-center">
+                    Libri da ordinare
+                  </div>
+                  <div class="div-table-cell-side">&nbsp;</div>
+                </div>
+              </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>ISBN</th>
+                <th>Titolo</th>
+                <th>Casa Editrice</th>
+                <th>Quantità</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order>
+              <tr>
+                <td>{{order.isbn}}</td>
+                <td>{{order.title}}</td>
+                <td>{{order.publishername}}</td>
+                <td>{{order.quantity}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="p-col-12 box">
+          <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"
+            [disabled]="newOrder.bookings.length < 1"></button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

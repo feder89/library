@@ -1,0 +1,34 @@
+<div class="p-col-12">
+  <div class="p-grid">
+    <div class="p-col-4 div-align-right">
+      <label class="margin-x-r" for="iva">SCUOLA</label>
+    </div>
+    <div class="p-col-8">
+      <p-dropdown id="distributore-dd" placeholder="Scegli Scuola" [options]="allSchool"
+        (onChange)="onChangeSchool($event)"></p-dropdown>
+    </div>
+    <div class="p-col-4 div-align-right">
+      <label class="margin-x-r" for="iva">CLASSE</label>
+    </div>
+    <div class="p-col-8">
+      <p-dropdown id="distributore-dd" placeholder="Scegli Classe" [options]="classes"
+        (onChange)="onChangeClass($event)" [disabled]="!classes"></p-dropdown>
+    </div>
+    <div class="p-col-12 margin-y-t-3" *ngIf="students">
+      <p-table [value]="students" >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Cognome</th>
+            <th>Nome</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stud>
+          <tr >
+            <td>{{stud.cognome}}</td>
+            <td>{{stud.nome}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

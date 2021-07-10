@@ -1,0 +1,20 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-g-nopad" *ngIf="class">
+    <div class="ui-g-4 div-align-right">
+      <label for="title" class="margin-x-r">NOME</label>
+    </div>
+    <div class="ui-g-8">
+      <input id="title" type="text" pInputText [(ngModel)]="class.nome" />
+    </div>
+    <div class="ui-g-4 div-align-right">
+      <label class="margin-x-r" for="publisher-dd">SCUOLA</label>
+    </div>
+    <div class="ui-g-8">
+      <p-dropdown id="publisher-dd" placeholder="Scegli Scuola" [options]="schools" baseZIndex=999 appendTo="body" (onChange)="onChangeSchoolSelect($event)"
+        [(ngModel)]="class.scuole" optionLabel="nome"></p-dropdown>
+    </div>
+    <div class="ui-g-4">
+      <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+    </div>
+  </div>
+</div>

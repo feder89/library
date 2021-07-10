@@ -1,0 +1,51 @@
+<p-table [value]="waitingBooks" [(selection)]="toBeUpdated"  [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    Gestione arrivi
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3em">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>ISBN</th>
+      <th>Titolo</th>
+      <th>Prezzo €</th>
+      <th>Casa Editrice</th>
+      <th>N. ordinati</th>
+      <th>N. arrivati</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt pInputText type="text" (input)="filterBooks(ipt.value)" style="width: 95%;">
+        </div>
+
+      </th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-waiting let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="waiting" [pSelectableRowIndex]="rowIndex" >
+      <td>
+        <p-tableCheckbox [value]="waiting" [index]="rowIndex"></p-tableCheckbox>
+      </td>
+      <td>{{waiting.libro.codice_isbn}}</td>
+      <td> {{waiting.libro.titolo}}</td>
+      <td> {{waiting.libro.prezzo.toFixed(2)}}</td>
+      <td> {{waiting.casa_editrice}}</td>
+      <td> {{waiting.num}}</td>
+      <td>
+        <p-dropdown [options]="getDropboxValues(waiting.num)" [(ngModel)]="waiting.arrived" >
+        </p-dropdown>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<div class="p-col-12">
+  <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+</div>

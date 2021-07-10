@@ -1,0 +1,42 @@
+<div class="p-grid" *ngIf="student">
+  <div class="p-col-4 div-align-right">
+    <label for="title" class="margin-x-r">NOME</label>
+  </div>
+  <div class="p-col-8">
+    <input id="title" type="text" pInputText [(ngModel)]="student.nome" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="cognome">COGNOME</label>
+  </div>
+  <div class="p-col-8">
+    <input id="cognome" type="text" pInputText [(ngModel)]="student.cognome" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="residenza">RESIDENZA</label>
+  </div>
+  <div class="p-col-8">
+    <input id="residenza" type="text" pInputText [(ngModel)]="student.residenza" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="class-dd">CLASSE</label>
+  </div>
+  <div class="p-col-8">
+    <p-dropdown id="class-dd" placeholder="Scegli Classe" [options]="classes"
+        [(ngModel)]="student.classe"></p-dropdown>
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="mail">E-MAIL</label>
+  </div>
+  <div class="p-col-8">
+    <input id="mail" type="email" pInputText [(ngModel)]="student.mail" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="telefono">TELEFONO</label>
+  </div>
+  <div class="p-col-8">
+    <input id="telefono" type="text" pInputText [(ngModel)]="student.telefono" />
+  </div>
+  <div class="p-col-4">
+    <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+  </div>
+</div>

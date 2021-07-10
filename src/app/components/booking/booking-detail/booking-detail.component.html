@@ -1,0 +1,74 @@
+<div class="p-col-12 p-col-nogutter" style="min-height: 500px; max-width: 1150px">
+  <div class="p-col-12">
+    <div class="p-grid p-justify-center">
+      <div class="p-col-4">
+        <p-dropdown [options]="students" placeholder="Seleziona studente" [(ngModel)]="selectedStudent" filter="true"
+          [disabled]="studentId != null" (onChange)="onSelectStudent($event)"></p-dropdown>
+      </div>
+      <div class="p-col-4">
+        <button pButton class="ui-button-info" label="Crea studente" (click)="createStudent()"
+          [disabled]="studentId != null"></button>
+      </div>
+      <div class="p-col-4 margin-y-t">DATA PRENOTAZIONE: {{mapper.formatDatetime(bookingInfo.data)}}</div>
+      <div class="p-col-4"><span class="margin-x-r margin-y-t">CAPARRA €</span>
+        <input id="price" type="number" pattern="[0-9]+([,\.][0-9]+)?" step=".01" pInputText
+          [(ngModel)]="bookingInfo.caparra" />
+      </div>
+      <div class="p-col-4">
+        <button pButton type="button" label="Salva Prenotazione" class="ui-button-success"
+          (click)="saveBookingInfo()"></button>
+      </div>
+      <div class="p-col-4">
+        <p-checkbox [disabled]="!checkToBeBookeNotEmpty()" name="cdl" value="Cedola" label="Cedola" [(ngModel)]="cedola" binary="true" (onChange)="onCheck($event)" inputId="cdl"></p-checkbox>
+      </div>
+
+    </div>
+  </div>
+  <span *ngIf="studentId && bookingId">
+    <p-table [value]="allClassBooks" (onRowUnselect)="onRowUnselect($event)" (onRowSelect)="onRowSelect($event)" [(selection)]="toBeBooked" [scrollable]="true" scrollHeight="200px">
+      <ng-template pTemplate="caption">
+        Dettagli Prenotazione
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3em">
+
+          </th>
+          <th>ISBN</th>
+          <th>Libro</th>
+          <th>Materia</th>
+          <th>Prezzo €</th>
+          <th>Stato</th>
+          <th>Foderatura</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-booking let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="booking" [pSelectableRowIndex]="rowIndex">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="booking" [index]="rowIndex"></p-tableCheckbox>
+          </td>
+          <td>{{booking.libri.codice_isbn}}</td>
+          <td>{{booking.libri.case_editrici.nome}} {{booking.libri.titolo}}</td>
+          <td>{{booking.libri.materia}}</td>
+          <td>{{booking.libri.prezzo.toFixed(2)}}</td>
+          <td>{{booking.stato}}</td>
+          <td>
+            <p-checkbox (onChange)="onChangeFoderatura($event, booking)" [(ngModel)]="booking.foderatura" binary="true"></p-checkbox>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="margin-y-b margin-y-t">
+          Note: <br/>
+          <textarea [cols]="60" pInputTextarea [(ngModel)]="bookingInfo.note"></textarea>
+        </div>
+        <div class="div-align-right">Totale prenotazione € {{calculateBookingCost()}}</div>
+        <div class="div-align-right">Caparra € {{bookingInfo.caparra}}</div>
+        <div class="div-align-right">Totale da pagare € {{claculanteToBePaied()}}</div>
+      </ng-template>
+    </p-table>
+
+    <button pButton type="button" label="Salva Dettagli Prenotazione" class="ui-button-success" (click)="save()"></button>
+  </span>
+
+</div>

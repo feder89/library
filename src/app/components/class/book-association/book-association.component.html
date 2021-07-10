@@ -1,0 +1,15 @@
+<div class="p-grid p-justify-center" *ngIf="associated && notAssociated">
+  <div class="p-col-9" style="text-align: center !important;">
+    <p-pickList [responsive]="true" [source]="notAssociated" [sourceStyle]="{'height':'25em'}" [targetStyle]="{'height':'25em'}" [target]="associated" filterBy="titolo" sourceFilterPlaceholder="Cerca per titolo">
+      <ng-template let-book pTemplate="item">
+        <div class="ui-helper-clearfix">
+          <div style="font-size:12px;float:right;margin:0em 1em 0 0">{{book.isbn}} - {{book.titolo}} - {{book.casa_editrice}} - {{book.materia}}</div>
+        </div>
+      </ng-template>
+    </p-pickList>
+  </div>
+  <div class="p-col-3 p-col-align-center">
+    <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+  </div>
+</div>
+

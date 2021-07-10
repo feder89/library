@@ -1,0 +1,65 @@
+<p-table [value]="students"  [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          <button pButton icon="fa fa-plus" (click)="onAddStudent()"></button>
+        </div>
+        <div class="div-table-cell-center">
+          Anagrafica Studenti
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Residenza</th>
+        <th>Scuola</th>
+        <th>Classe</th>
+        <th>Telefono</th>
+        <th>E-mail</th>
+        <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt pInputText type="text" (input)="filterStudents(ipt.value)" style="width: 95%;">
+        </div>
+      </th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-student>
+      <tr>
+          <td>{{student.id}}</td>
+          <td>{{student.nome}}</td>
+          <td>{{student.cognome}}</td>
+          <td>{{student.residenza}}</td>
+          <td>{{student.classi.scuole.nome}}</td>
+          <td>{{student.classi.nome}}</td>
+          <td>{{student.telefono}}</td>
+          <td>{{student.mail}}</td>
+          <td>
+            <span class="margin-x-r">
+              <button pButton icon="fa fa-pencil" (click)="onSelectStudent(student.id)"></button>
+            </span>
+            <button pButton icon="fa fa-trash-o" (click)="onDeleteStudent(student.id)"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<p-dialog header="Dettaglio Studente" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
+  <app-student-detail [studentId]="studentIdSeleted" (close)="closeStudentDetails($event)"></app-student-detail>
+</p-dialog>

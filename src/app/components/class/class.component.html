@@ -1,0 +1,65 @@
+<p-table [value]="classes"  [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          <button pButton icon="fa fa-plus" (click)="onAddClass()"></button>
+        </div>
+        <div class="div-table-cell-center">
+          Anagrafica Classi
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Scuola</th>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt pInputText type="text" (input)="filterClass(ipt.value)" style="width: 95%;">
+        </div>
+      </th>
+     <th></th>
+     <th></th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-class>
+    <tr>
+      <td>{{class.id}}</td>
+      <td>{{class.scuole.tipologia}}, {{class.scuole.nome}}</td>
+      <td>{{class.nome}}</td>
+      <td>
+        <span class="margin-x-r">
+          <button pButton icon="fa fa-pencil" (click)="onSelectClass(class.id)"></button>
+        </span>
+        <button pButton icon="fa fa-trash-o" (click)="onDeleteClass(class.id)"></button>
+      </td>
+      <td>
+        <button pButton (click)="onSelectClassAssociation(class.id)" label="Associa Libri"></button>
+        <span class="margin-x-l" *ngIf="class.associata" style="color: green; font-size: 1.5em;">
+          <i class="fa fa-check-circle" aria-hidden="true"></i>
+        </span>
+      </td>
+    </tr>
+
+  </ng-template>
+</p-table>
+  <p-dialog #cd header="Dettaglio Classe" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog($event)">
+    <app-class-detail [classId]="classIdSeleted"></app-class-detail>
+  </p-dialog>
+<div id="apb">
+  <p-dialog #abp header="Libri Associati alla classe" minWidth=900 [(visible)]="displayAssociationDialog"
+    (onHide)="closeAssociationDialog($event)">
+    <app-book-association [classId]="classIdSeletedAssociation"></app-book-association>
+  </p-dialog>
+</div>

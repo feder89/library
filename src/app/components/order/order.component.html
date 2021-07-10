@@ -1,0 +1,16 @@
+  <!-- <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Ordini">
+      <app-order-manager></app-order-manager>
+    </p-tabPanel>
+    <p-tabPanel header="Nuovo Ordine">
+      <app-order-detail></app-order-detail>
+    </p-tabPanel>
+    <p-tabPanel header="Registro arrivi">
+      <app-received-order-registry></app-received-order-registry>
+    </p-tabPanel>
+  </p-tabView> -->
+  <p-tabMenu [model]="items"></p-tabMenu>
+  <div class="p-grid p-nogutter">
+    <router-outlet></router-outlet>
+  </div>
+

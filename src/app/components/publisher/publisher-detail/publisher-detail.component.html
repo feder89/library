@@ -1,0 +1,53 @@
+<div class="p-grid" *ngIf="publisher">
+  <div class="p-col-4 div-align-right">
+    <label for="title" class="margin-x-r">NOME</label>
+  </div>
+  <div class="p-col-8">
+    <input id="title" type="text" pInputText [(ngModel)]="publisher.nome" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="iva">PARTITA IVA</label>
+  </div>
+  <div class="p-col-8">
+    <input id="iva" type="text" pInputText [(ngModel)]="publisher.iva" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="indirizzo">INDIRIZZO</label>
+  </div>
+  <div class="p-col-8">
+    <input id="indirizzo" type="text" pInputText [(ngModel)]="publisher.indirizzo" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="citta">CAP</label>
+  </div>
+  <div class="p-col-8">
+    <p-inputMask id="provincia" [(ngModel)]="publisher.cap" mask="99999"></p-inputMask>
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="citta">CITTA'</label>
+  </div>
+  <div class="p-col-8">
+    <input id="citta" type="text" pInputText [(ngModel)]="publisher.citta" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="provincia">PROVINCIA</label>
+  </div>
+  <div class="p-col-8">
+    <p-inputMask id="provincia" [(ngModel)]="publisher.provincia" mask="aa"></p-inputMask>
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="mail">E-MAIL</label>
+  </div>
+  <div class="p-col-8">
+    <input id="mail" type="email" pInputText [(ngModel)]="publisher.mail" />
+  </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="telefono">TELEFONO</label>
+  </div>
+  <div class="p-col-8">
+    <input id="telefono" type="text" pInputText [(ngModel)]="publisher.telefono" />
+  </div>
+  <div class="p-col-4">
+    <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+  </div>
+</div>

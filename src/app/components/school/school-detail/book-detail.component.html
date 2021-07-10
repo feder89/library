@@ -1,0 +1,32 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-g-nopad" *ngIf="book">
+    <div class="ui-g-4 div-align-right">
+      <label for="title" class="margin-x-r">TITOLO</label>
+    </div>
+    <div class="ui-g-8">
+      <input id="title" type="text" pInputText [(ngModel)]="book.titolo" />
+    </div>
+    <div class="ui-g-4 div-align-right">
+      <label class="margin-x-r" for="publisher-dd">CODICE ISBN</label>
+    </div>
+    <div class="ui-g-8">
+      <p-dropdown id="publisher-dd" placeholder="Scegli Casa Editrice" [options]="publishers" (onChange)="onChangeCasaEditriveSelect($event)"
+        [(ngModel)]="book.case_editrici" optionLabel="nome"></p-dropdown>
+    </div>
+    <div class="ui-g-4 div-align-right">
+      <label class="margin-x-r" for="price">PREZZO</label>
+    </div>
+    <div class="ui-g-8">
+      <input id="price" type="number" step="0.01" pInputText [(ngModel)]="book.prezzo" />
+    </div>
+    <div class="ui-g-4 div-align-right">
+      <label class="margin-x-r" for="isbn">CODICE ISBN</label>
+    </div>
+    <div class="ui-g-8">
+      <input id="isbn" type="text" pInputText [(ngModel)]="book.codice_isbn" />
+    </div>
+    <div class="ui-g-4">
+      <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+    </div>
+  </div>
+</div>

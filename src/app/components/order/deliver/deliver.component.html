@@ -1,0 +1,60 @@
+<div class="p-col-12">
+  <div class="p-grid">
+    <div class="p-col-4 div-align-right">
+      <label class="margin-x-r" for="iva">STUDENTE</label>
+    </div>
+    <div class="p-col-8">
+      <p-dropdown id="distributore-dd" placeholder="Scegli Studente" [options]="students" filter="true"
+        (onChange)="onChangeStudent($event)"></p-dropdown>
+    </div>
+    <div class="p-col-8 p-col-offset-4">
+      <button pButton type="button" label="Stampa Libri Prenotazione" (click)="openBooklist()" [disabled]="idStudent == null"></button>
+    </div>
+    <div class="p-col-12 margin-y-t-3">
+      <p-table [value]="deliveringBooks" [(selection)]="toBeDelivered">
+        <ng-template pTemplate="caption">
+          <div class="div-table">
+            <div class="div-table-row">
+              <div class="div-table-cell-side">
+                &nbsp;
+              </div>
+              <div class="div-table-cell-center">
+                Libri da consegnare
+              </div>
+              <div class="div-table-cell-side">&nbsp;</div>
+            </div>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3em"></th>
+            <th>ISBN</th>
+            <th>Titolo</th>
+            <th>Materia</th>
+          </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-book>
+          <tr [pSelectableRow]="book">
+            <td>
+              <p-tableCheckbox [value]="book"></p-tableCheckbox>
+            </td>
+            <td>{{book.codice_isbn}}</td>
+            <td>{{book.titolo}}</td>
+            <td>{{book.materia}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="p-col-10 p-col-offset-2">
+      <button pButton type="button" label="Salva libri consegnati" (click)="saveDelivered()"
+        [disabled]="toBeDelivered.length<1"></button>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Lista Libri Prenotati" minWidth=600 height=1000 [(visible)]="displayDetailDialog">
+  <app-books-list-by-student [studentId]="idStudent">
+  </app-books-list-by-student>
+</p-dialog>

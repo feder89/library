@@ -1,0 +1,83 @@
+<p-table #dt [value]="bookings" sortField="data" sortOrder="1" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          <button pButton icon="fa fa-plus" (click)="onAddBooking()"></button>
+        </div>
+        <div class="div-table-cell-center">
+          Lista Prenotazioni
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Data</th>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Scuola e classe</th>
+      <th>Caparra €</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt3 pInputText type="text" (input)="filterBookingsBySurname(ipt3.value)" style="width: 95%;">
+        </div>
+      </th>
+      <th><div style="width: 90%;">
+        <input #ipt1 pInputText type="text" (input)="filterBookingsBySchool(ipt1.value)" style="width: 95%;">
+      </div></th>
+      <th></th>
+      <th><p-dropdown  [options]="status" [style]="{'width':'100%'}" (onChange)="filterBystatus($event)"></p-dropdown></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-booking>
+    <tr>
+      <td>{{booking.id}}</td>
+      <td>{{utils.formatDatetime(booking.data)}}</td>
+      <td>{{booking.nome}}</td>
+      <td>{{booking.cognome}}</td>
+      <td>{{booking.scuola}}</td>
+      <td>{{booking.caparra.toFixed(2)}}</td>
+      <td>
+        <div class="div-table">
+          <div class="div-table-row">
+            <div class="div-table-cell-center-row">
+              <button pButton icon="fa fa-pencil" (click)="onSelectBooking(booking)"></button>
+            </div>
+            <div class="div-table-cell-center-row">
+              <button pButton icon="fa fa-trash-o" (click)="onDeleteBooking(booking.id)"></button>
+            </div>
+            <div class="div-table-cell-center-row">
+              <div class="circle-red" *ngIf="setCircleColor(booking.id) === 'red'">&nbsp;</div>
+              <div class="circle-yellow" *ngIf="setCircleColor(booking.id) === 'yellow'">&nbsp;</div>
+              <div class="circle-green" *ngIf="setCircleColor(booking.id) === 'green'">&nbsp;</div>
+            </div>
+            <div class="div-table-cell-center-row">
+              <span class="margin-x-l" *ngIf="areAllBooksArrived(booking.id)"
+                style="color: green; font-size: 1.5em;">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-dialog header="Dettaglio Prenotazione" minWidth=600 height=1000 [(visible)]="displayDetailDialog"
+  (onHide)="closeDialog()">
+  <app-booking-detail [bookingQuery]="bookingSeleted" [classId]="classId" (open)="notifyOpenDialog($event)">
+  </app-booking-detail>
+</p-dialog>
+<p-dialog header="Dettaglio Studente" minWidth=600 [(visible)]="displayStudentDetail">
+  <app-student-detail [studentId]="studentId" (close)="closeStudentDetails($event)"></app-student-detail>
+</p-dialog>

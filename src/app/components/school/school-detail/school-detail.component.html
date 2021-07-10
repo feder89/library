@@ -1,0 +1,20 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-g-nopad" *ngIf="school">
+    <div class="ui-g-4 div-align-right">
+      <label for="nome" class="margin-x-r">NOME</label>
+    </div>
+    <div class="ui-g-8">
+      <input id="nome" type="text" pInputText [(ngModel)]="school.nome" />
+    </div>
+    <div class="ui-g-4 div-align-right">
+      <label class="margin-x-r" for="schooltype-dd">TIPOLOGIA</label>
+    </div>
+    <div class="ui-g-8">
+      <p-dropdown id="schooltype-dd" placeholder="Scegli Tipologia" [options]="schoolTypes"
+        [(ngModel)]="school.tipologia"></p-dropdown>
+    </div>
+    <div class="ui-g-4">
+      <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<p-table [value]="publishers"  [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="div-table">
+      <div class="div-table-row">
+        <div class="div-table-cell-side">
+          <button pButton icon="fa fa-plus" (click)="onAddPublisher()"></button>
+        </div>
+        <div class="div-table-cell-center">
+          Anagrafica Case Editrici
+        </div>
+        <div class="div-table-cell-side">&nbsp;</div>
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>P. IVA</th>
+        <th>Indirizzo</th>
+        <th>CAP</th>
+        <th>Città</th>
+        <th>Provincia</th>
+        <th>E-mail</th>
+        <th>Telefono</th>
+        <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <div style="width: 90%;">
+          <input #ipt pInputText type="text" (input)="filterPublishers(ipt.value)" style="width: 95%;">
+        </div>
+      </th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-publisher>
+      <tr>
+          <td>{{publisher.id}}</td>
+          <td>{{publisher.nome}}</td>
+          <td>{{publisher.iva}}</td>
+          <td>{{publisher.indirizzo}}</td>
+          <td>{{publisher.cap}}</td>
+          <td>{{publisher.citta}}</td>
+          <td>{{publisher.provincia}}</td>
+          <td>{{publisher.mail}}</td>
+          <td>{{publisher.telfono}}</td>
+          <td>
+            <span class="margin-x-r">
+              <button pButton icon="fa fa-pencil" (click)="onSelectPublisher(publisher.id)"></button>
+            </span>
+            <button pButton icon="fa fa-trash-o" (click)="onDeletePublisher(publisher.id)"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<p-dialog header="Dettaglio Casa Editrice" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
+  <app-publisher-detail [publisherId]="publisherIdSeleted"></app-publisher-detail>
+</p-dialog>
