@@ -36,6 +36,12 @@
   <div class="p-col-8">
     <input id="telefono" type="text" pInputText [(ngModel)]="student.telefono" />
   </div>
+  <div class="p-col-4 div-align-right">
+    <label class="margin-x-r" for="cod_fiscale">CODICE FISCALE</label>
+  </div>
+  <div class="p-col-8">
+    <input id="cod_fiscale" type="text" pInputText [(ngModel)]="student.cod_fiscale" />
+  </div>
   <div class="p-col-4">
     <button pButton type="button" label="Salva" class="ui-button-success" (click)="save()"></button>
   </div>

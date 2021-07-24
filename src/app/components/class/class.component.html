@@ -42,7 +42,7 @@
         <span class="margin-x-r">
           <button pButton icon="fa fa-pencil" (click)="onSelectClass(class.id)"></button>
         </span>
-        <button pButton icon="fa fa-trash-o" (click)="onDeleteClass(class.id)"></button>
+        <button pButton icon="fa fa-trash-o" (click)="onDeleteClass(class.id, class.scuole.tipologia +' ' + class.scuole.nome + ' '+ class.nome)"></button>
       </td>
       <td>
         <button pButton (click)="onSelectClassAssociation(class.id)" label="Associa Libri"></button>
@@ -63,3 +63,4 @@
     <app-book-association [classId]="classIdSeletedAssociation"></app-book-association>
   </p-dialog>
 </div>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>

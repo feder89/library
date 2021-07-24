@@ -41,7 +41,8 @@ export class StudentDetailComponent implements OnChanges {
       classe: null,
       mail: '',
       telefono: '',
-      classi: null
+      classi: null,
+      cod_fiscale: ''
     });
   }
 

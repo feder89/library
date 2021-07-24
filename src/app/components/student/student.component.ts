@@ -13,6 +13,9 @@ export class StudentComponent implements OnInit {
   public totalStudents: Student[];
   public displayDetailDialog: boolean;
   public studentIdSeleted: number = null;
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
 
   constructor(private studentService: StudentService, private app: AppComponent) { }
 
@@ -39,16 +42,10 @@ export class StudentComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  onDeleteStudent(id: number): void {
-    this.studentService.deleteStudent(id).subscribe(
-      res => {
-        this.app.handleToastMessages('success', 'Completato', 'Studente rimosso');
-        this.getAllStudents();
-      },
-      error => {
-        this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
-      }
-    );
+  onDeleteStudent(id: number, nome: string): void {
+    this.value = nome;
+    this.idToDelete = id;
+    this.type = "Studente";    
   }
 
   onAddStudent(): void {
@@ -64,5 +61,22 @@ export class StudentComponent implements OnInit {
     this.students = this.totalStudents.filter((b) => {
       return b.cognome.toLowerCase().indexOf(s) > -1;
     });
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.studentService.deleteStudent(this.idToDelete).subscribe(
+        res => {
+          this.app.handleToastMessages('success', 'Completato', 'Studente rimosso');
+          this.getAllStudents();
+        },
+        error => {
+          this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+        }
+      );
+    }
+    this.value = null;
+    this.idToDelete = 0;
+    this.type = null;
   }
 }

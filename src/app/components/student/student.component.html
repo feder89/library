@@ -23,6 +23,7 @@
         <th>Classe</th>
         <th>Telefono</th>
         <th>E-mail</th>
+        <th>Codice Fiscale</th>
         <th></th>
     </tr>
     <tr>
@@ -33,6 +34,7 @@
           <input #ipt pInputText type="text" (input)="filterStudents(ipt.value)" style="width: 95%;">
         </div>
       </th>
+     <th></th>
      <th></th>
      <th></th>
      <th></th>
@@ -51,11 +53,12 @@
           <td>{{student.classi.nome}}</td>
           <td>{{student.telefono}}</td>
           <td>{{student.mail}}</td>
+          <td>{{student.cod_fiscale}}</td>
           <td>
             <span class="margin-x-r">
               <button pButton icon="fa fa-pencil" (click)="onSelectStudent(student.id)"></button>
             </span>
-            <button pButton icon="fa fa-trash-o" (click)="onDeleteStudent(student.id)"></button>
+            <button pButton icon="fa fa-trash-o" (click)="onDeleteStudent(student.id, student.nome + ' ' + student.cognome)"></button>
           </td>
       </tr>
   </ng-template>
@@ -63,3 +66,4 @@
 <p-dialog header="Dettaglio Studente" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
   <app-student-detail [studentId]="studentIdSeleted" (close)="closeStudentDetails($event)"></app-student-detail>
 </p-dialog>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>

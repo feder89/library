@@ -26,6 +26,9 @@ export class BookingComponent implements OnInit {
     { value: true, label: 'Completi' },
     { value: false, label: 'Non Completi' }
   ];
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
   constructor(private bookingService: BookingService, private app: AppComponent) { }
 
   ngOnInit() {
@@ -61,16 +64,11 @@ export class BookingComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  onDeleteBooking(id: number): void {
-    this.bookingService.deleteBooking(id).subscribe(
-      res => {
-        this.app.handleToastMessages('success', 'Completato', 'Scuola rimossa');
-        this.loadBookingList();
-      },
-      error => {
-        this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
-      }
-    );
+  onDeleteBooking(id: number, nome: string): void {
+    this.value = nome;
+    this.idToDelete = id;
+    this.type = "Penotazione";
+    
   }
 
   onAddBooking(): void {
@@ -169,6 +167,23 @@ export class BookingComponent implements OnInit {
         }
       });
     }
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.bookingService.deleteBooking(this.idToDelete).subscribe(
+        res => {
+          this.app.handleToastMessages('success', 'Completato', 'Prenotazione rimossa');
+          this.loadBookingList();
+        },
+        error => {
+          this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+        }
+      );
+    }
+    this.value = null;
+    this.idToDelete = 0;
+    this.type = null;
   }
 
 }

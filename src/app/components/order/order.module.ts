@@ -20,6 +20,9 @@ import { DeliverComponent } from './deliver/deliver.component';
 import { BooksListByStudentComponent } from './deliver/books-list-by-student/books-list-by-student.component';
 import { OrderConsultComponent } from './order-consult/order-consult.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import { DeleteOrderDialogComponent } from './delete-order-dialog/delete-order-dialog.component';
 
 @NgModule({
   imports: [
@@ -35,8 +38,9 @@ import { InputTextModule } from 'primeng/inputtext';
     CheckboxModule,
     TabViewModule,
     MultiSelectModule,
-    TabMenuModule
+    TabMenuModule,
+    ConfirmDialogModule
   ],
-  declarations: [OrderManagerComponent, OrderDetailComponent, ReceivedOrderRegistryComponent, OrderComponent, DeliverComponent, BooksListByStudentComponent, OrderConsultComponent],
+  declarations: [OrderManagerComponent, OrderDetailComponent, ReceivedOrderRegistryComponent, OrderComponent, DeliverComponent, BooksListByStudentComponent, OrderConsultComponent, DeleteOrderDialogComponent],
 })
 export class OrderModule { }

@@ -45,6 +45,7 @@
       <td>{{utils.formatDatetime(booking.data)}}</td>
       <td>{{booking.nome}}</td>
       <td>{{booking.cognome}}</td>
+      <td>{{booking.cod_fiscale}}</td>
       <td>{{booking.scuola}}</td>
       <td>{{booking.caparra.toFixed(2)}}</td>
       <td>
@@ -54,7 +55,7 @@
               <button pButton icon="fa fa-pencil" (click)="onSelectBooking(booking)"></button>
             </div>
             <div class="div-table-cell-center-row">
-              <button pButton icon="fa fa-trash-o" (click)="onDeleteBooking(booking.id)"></button>
+              <button pButton icon="fa fa-trash-o" (click)="onDeleteBooking(booking.id, booking.nome +' '+ booking.cognome)"></button>
             </div>
             <div class="div-table-cell-center-row">
               <div class="circle-red" *ngIf="setCircleColor(booking.id) === 'red'">&nbsp;</div>
@@ -81,3 +82,4 @@
 <p-dialog header="Dettaglio Studente" minWidth=600 [(visible)]="displayStudentDetail">
   <app-student-detail [studentId]="studentId" (close)="closeStudentDetails($event)"></app-student-detail>
 </p-dialog>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>

@@ -40,7 +40,7 @@
             <span class="margin-x-r">
               <button pButton icon="fa fa-pencil" (click)="onSelectSchool(school.id)"></button>
             </span>
-            <button pButton icon="fa fa-trash-o" (click)="onDeleteSchool(school.id)"></button>
+            <button pButton icon="fa fa-trash-o" (click)="onDeleteSchool(school.id, school.tipologia + ' ' + school.nome)"></button>
           </td>
       </tr>
   </ng-template>
@@ -48,3 +48,4 @@
 <p-dialog header="Dettaglio Scuola" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
   <app-school-detail [schoolId]="schoolIdSeleted"></app-school-detail>
 </p-dialog>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>

@@ -32,6 +32,7 @@
             <span class="margin-x-r">
               <button pButton icon="fa fa-pencil" (click)="onSelectOrder(order.id)"></button>
             </span>
+            <button pButton icon="fa fa-trash-o" (click)="onDeleteOrder(order.id, order.object.nome)"></button>
           </td>
       </tr>
   </ng-template>
@@ -39,3 +40,4 @@
 <p-dialog header="Dettaglio Ordine" minWidth=600 height=1000 [(visible)]="displayDetailDialog" [(visible)]="displayDetailDialog" (onHide)="closeDialog()" >
   <app-order-consult [orderId]="orderIdSeleted"></app-order-consult>
 </p-dialog>
+<app-delete-order-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-order-dialog>

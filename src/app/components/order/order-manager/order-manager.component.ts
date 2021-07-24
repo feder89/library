@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { Status } from 'src/app/interfaces/status.enum';
 import { OrderService } from 'src/app/services/order.service';
 import { Utils } from 'src/app/util/utils';
 
@@ -13,6 +14,9 @@ export class OrderManagerComponent implements OnInit {
   public displayDetailDialog: boolean;
   public orderIdSeleted: number = null;
   public utils: Utils = new Utils();
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
 
   constructor(private orderService: OrderService, private app: AppComponent) { }
 
@@ -37,18 +41,11 @@ export class OrderManagerComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  // public onDeleteOrder(el: number): void {
-  //   this.orderService.deleteOrder(el)
-  //   .subscribe(
-  //     res => {
-  //       this.app.handleToastMessages( 'success', 'Completato', 'Libro rimosso');
-  //       this.loadOrder();
-  //     },
-  //     error => {
-  //       this.app.handleToastMessages( 'error', 'Messaggio di errore', 'Operazione fallita');
-  //     }
-  //   );
-  //  }
+  public onDeleteOrder(el: number, nome: string): void {
+    this.value = nome;
+    this.idToDelete = el;
+    this.type = "Ordine";
+  }
 
   public closeDialog(): void {
     this.loadOrder();
@@ -61,6 +58,34 @@ export class OrderManagerComponent implements OnInit {
     } else {
       return 'case_editrici';
     }
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.orderService.updateOrderBookingsToWaitingStatus(this.idToDelete)
+        .subscribe(
+          res => {
+            this.orderService.deleteOrder(this.idToDelete)
+              .subscribe(
+                res => {
+                  this.app.handleToastMessages('success', 'Completato', 'Ordine rimosso');
+                  this.value = null;
+                  this.idToDelete = 0;
+                  this.type = null;
+                  this.loadOrder();
+                },
+                error => {
+                  this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+                }
+              );
+          },
+          error => {
+            this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+          }
+        )
+
+    }
+
   }
 
 

@@ -18,6 +18,12 @@ export class OrderService {
     return this.http.get<any[]>(url);
   }
 
+  public deleteOrder(id: number): Observable<any> {
+    const url = this.baseUrl + 'ordini' + '?id=eq.' + id;
+
+    return this.http.delete<any>(url);
+  }
+
   insertOrUpdateOrders(order: any): Observable<any> {
     const header: HttpHeaders = new HttpHeaders()
       .append('Prefer', 'return=representation')
@@ -80,6 +86,14 @@ export class OrderService {
   public getWholsalersAndPublisherToBeReminded(): Observable<any[]> {
     const url = this.baseUrl + 'rpc/filtra_ordini_all';
     return this.http.get<any[]>(url);
+  }
+
+  public updateOrderBookingsToWaitingStatus(id_ordine: number): Observable<any> {    
+    const header: HttpHeaders = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+    const bosy = JSON.stringify({orderid:id_ordine});
+    let url = this.baseUrl + 'rpc/update_ordini_in_attesa';
+    return this.http.post<any>(url, bosy, {headers: header});
   }
 
 }

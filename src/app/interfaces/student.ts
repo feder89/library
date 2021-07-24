@@ -9,5 +9,6 @@ export interface Student {
   mail: string;
   telefono: string;
   classi: Class;
+  cod_fiscale: string;
 }
 

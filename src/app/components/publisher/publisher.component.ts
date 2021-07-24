@@ -16,6 +16,10 @@ export class PublisherComponent implements OnInit {
   public displayDetailDialog: boolean;
   public publisherIdSeleted: number = null;
 
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
+
   constructor(private publisherService: PublisherService, private messageService: MessageService, private app: AppComponent) { }
 
   ngOnInit() {
@@ -40,17 +44,10 @@ export class PublisherComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  public onDeletePublisher(el: number): void {
-    this.publisherService.deletePublisher(el)
-      .subscribe(
-        res => {
-          this.app.handleToastMessages('success', 'Completato', 'Casa editrice rimossa');
-          this.loadPublisher();
-        },
-        error => {
-          this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
-        }
-      );
+  public onDeletePublisher(el: number, nome:string): void {
+    this.idToDelete=el;
+    this.value=nome;
+    this.type="Casa Editrice";
   }
 
   public closeDialog(): void {
@@ -62,6 +59,26 @@ export class PublisherComponent implements OnInit {
     this.publishers = this.allPublishers.filter((b) => {
       return b.nome.toLowerCase().indexOf(s) > -1;
     })
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.publisherService.deletePublisher(this.idToDelete)
+      .subscribe(
+        res => {
+          this.app.handleToastMessages('success', 'Completato', 'Casa editrice rimossa');
+          this.loadPublisher();
+        },
+        error => {
+          this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+        }
+      );
+
+    }
+    this.value = null;
+    this.idToDelete = 0;
+    this.type = null;
+    
   }
 
 }

@@ -14,6 +14,9 @@ export class WholesalersComponent implements OnInit {
   public totalWholesalers: Wholesaler[];
   public displayDetailDialog: boolean;
   public wholesalerIdSeleted: number = null;
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
 
   constructor(private wholesalerService: WholesalerService, private app: AppComponent) { }
 
@@ -39,18 +42,11 @@ export class WholesalersComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  public onDeleteWholesaler(el: number): void {
-    this.wholesalerService.deleteWholesaler(el)
-    .subscribe(
-      res => {
-        this.app.handleToastMessages( 'success', 'Completato', 'Libro rimosso');
-        this.loadWholesaler();
-      },
-      error => {
-        this.app.handleToastMessages( 'error', 'Messaggio di errore', 'Operazione fallita');
-      }
-    );
-   }
+  public onDeleteWholesaler(el: number, nome: string): void {
+    this.value = nome;
+    this.idToDelete = el;
+    this.type = "Distributore";
+  }
 
   public closeDialog(): void {
     this.loadWholesaler();
@@ -61,6 +57,24 @@ export class WholesalersComponent implements OnInit {
     this.wholesalers = this.totalWholesalers.filter((b) => {
       return b.nome.toLowerCase().indexOf(s) > -1;
     })
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.wholesalerService.deleteWholesaler(this.idToDelete)
+        .subscribe(
+          res => {
+            this.app.handleToastMessages('success', 'Completato', 'Libro rimosso');
+            this.loadWholesaler();
+          },
+          error => {
+            this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+          }
+        );
+    }
+    this.value = null;
+    this.idToDelete = 0;
+    this.type = null;
   }
 
 }

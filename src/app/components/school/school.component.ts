@@ -14,6 +14,9 @@ export class SchoolComponent implements OnInit {
   public totalSchools: School[];
   public displayDetailDialog: boolean;
   public schoolIdSeleted: number = null;
+  public type: string = null;
+  public value: string = null;
+  private idToDelete: number = 0;
 
 
   constructor(private schoolService: SchoolService, private messageService: MessageService, private app: AppComponent) { }
@@ -41,16 +44,11 @@ export class SchoolComponent implements OnInit {
     this.displayDetailDialog = true;
   }
 
-  onDeleteSchool(id: number): void {
-    this.schoolService.deleteSchool(id).subscribe(
-      res => {
-        this.app.handleToastMessages('success', 'Completato', 'Scuola rimossa');
-        this.getAllSchools();
-      },
-      error => {
-        this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
-      }
-    );
+  onDeleteSchool(id: number, nome: string): void {
+    this.idToDelete = id;
+    this.value = nome;
+    this.type = "Scuola";
+
   }
 
   onAddSchool(): void {
@@ -61,6 +59,23 @@ export class SchoolComponent implements OnInit {
     this.schools = this.totalSchools.filter((b) => {
       return b.nome.toLowerCase().indexOf(s) > -1;
     });
+  }
+
+  confirmDelete(evt) {
+    if (evt == true) {
+      this.schoolService.deleteSchool(this.idToDelete).subscribe(
+        res => {
+          this.app.handleToastMessages('success', 'Completato', 'Scuola rimossa');
+          this.getAllSchools();
+        },
+        error => {
+          this.app.handleToastMessages('error', 'Messaggio di errore', 'Operazione fallita');
+        }
+      );
+    }
+    this.value = null;
+    this.idToDelete = 0;
+    this.type = null;
   }
 
 }

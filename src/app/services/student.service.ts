@@ -30,7 +30,7 @@ export class StudentService {
     const url = this.baseUrl + '?id=eq.' + student.id;
     const header: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = JSON.stringify(student);
-    return this.http.put<Student>(url, body, { headers: header });
+    return this.http.patch<Student>(url, body, { headers: header });
   }
 
   public insertStudent(student: Student): Observable<Student> {

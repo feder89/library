@@ -60,7 +60,7 @@
         <span class="margin-x-r">
           <button pButton icon="fa fa-pencil" (click)="onSelectWholesaler(wholesaler.id)"></button>
         </span>
-        <button pButton icon="fa fa-trash-o" (click)="onDeleteWholesaler(wholesaler.id)"></button>
+        <button pButton icon="fa fa-trash-o" (click)="onDeleteWholesaler(wholesaler.id, wholesaler.nome)"></button>
       </td>
     </tr>
   </ng-template>
@@ -68,3 +68,4 @@
 <p-dialog header="Dettaglio Distributore" minWidth=600 [(visible)]="displayDetailDialog" (onHide)="closeDialog()">
   <app-wholesaler-detail [wholesalerId]="wholesalerIdSeleted"></app-wholesaler-detail>
 </p-dialog>
+<app-delete-confirm-dialog [type]="type" [value]="value" (confirmation)="confirmDelete($event)"></app-delete-confirm-dialog>
